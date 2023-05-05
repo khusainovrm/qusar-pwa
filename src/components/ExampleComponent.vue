@@ -10,7 +10,7 @@
     <p>Active: {{ active ? 'yes' : 'no' }}</p>
     <p>Clicks on todos: {{ clickCount }}</p>
 
-    <div>NEW CONTENT</div>
+    <div>NEW CONTENT №2</div>
   </div>
 </template>
 
