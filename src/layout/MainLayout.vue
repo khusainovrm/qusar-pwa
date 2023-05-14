@@ -17,10 +17,8 @@
           ></path>
         </svg>
       </a>
-
       <span class="">Hello</span>
     </div>
-
     <slot></slot>
   </div>
 </template>

@@ -2,14 +2,15 @@
   "name": "quasar-pwa",
   "version": "0.0.1",
   "description": "PWA Quasar App",
-  "productName": "Quasar App",
+  "productName": "Quasar App PWA",
   "author": "Rinat Khusainov <khusainovrm@yandex.ru>",
   "private": true,
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue ./ --fix",
     "test": "echo \"No test specified\" && exit 0",
-    "dev": "quasar dev",
-    "build": "quasar build -m pwa -d"
+    "dev": "quasar dev -m pwa --debug",
+    "build": "quasar build -m pwa -d",
+    "build:apk": "quasar build -m android -d"
   },
   "dependencies": {
     "@quasar/cli": "^2.1.1",
@@ -18,8 +19,8 @@
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
-    "vuedraggable": "^4.1.0",
-    "vue-router": "^4.0.0"
+    "vue-router": "^4.0.0",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@quasar/app-vite": "^1.0.0",

@@ -1,6 +1,6 @@
 <template>
   <div class="task-dashboard">
-    <h5 class="q-mb-md q-px-md">Задачи 😀</h5>
+    <h5 class="q-mb-md q-px-md q-mt-none">Задачи 😀</h5>
 
     <transition name="fade" mode="out-in">
       <div v-if="loading" class="loading">
