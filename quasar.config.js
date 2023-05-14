@@ -151,6 +151,22 @@ module.exports = configure((/* ctx */) => ({
     swFilename: 'sw.js',
     manifestFilename: 'manifest.json',
     useCredentialsForManifestTag: false,
+    workboxOptions: {
+      globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+      runtimeCaching: [
+        {
+          urlPattern: ({ url }) => url.pathname.startsWith('/v1'),
+          method: 'GET',
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'api-task',
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+      ],
+    },
     // useFilenameHashes: true,
     // extendGenerateSWOptions (cfg) {}
     // extendInjectManifestOptions (cfg) {},
