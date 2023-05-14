@@ -1,14 +1,14 @@
-import { store } from 'quasar/wrappers';
-import { createPinia } from 'pinia';
-import { Router } from 'vue-router';
-import useTaskStore from './tasks';
+import { store } from 'quasar/wrappers'
+import { createPinia } from 'pinia'
+import { Router } from 'vue-router'
+import useTaskStore from './tasks'
 
 declare module 'pinia' {
   export interface PiniaCustomProperties {
-    readonly router: Router;
+    readonly router: Router
   }
 }
 
-export default store((/* { ssrContext } */) => createPinia());
+export default store((/* { ssrContext } */) => createPinia())
 
-export { useTaskStore };
+export { useTaskStore }

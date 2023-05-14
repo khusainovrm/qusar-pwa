@@ -8,31 +8,32 @@
       <q-btn
         label="del"
         color="negative"
-        @click.stop="removeTask"
         :disable="loading"
         class="q-ml-auto"
+        @click.stop="removeTask"
       />
     </q-card-actions>
   </q-card>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { Task } from '@/types';
+import { ref } from 'vue'
+import type { Task } from '@/types'
 
 type Props = {
   item: Task
+  // eslint-disable-next-line no-unused-vars
   remove: (id: number) => Promise<void>
 }
-const props = defineProps<Props>();
+const props = defineProps<Props>()
 
-const loading = ref(false);
+const loading = ref(false)
 
 const removeTask = async () => {
-  loading.value = true;
-  await props.remove(props.item.id);
-  loading.value = false;
-};
+  loading.value = true
+  await props.remove(props.item.id)
+  loading.value = false
+}
 </script>
 
 <style scoped lang="scss">

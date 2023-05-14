@@ -25,22 +25,22 @@
         <div class="task-list" :class="{ mobile: $q.platform.is.mobile }">
           <div class="task-list__inner-container">
             <div
-              class="task-list-column"
               v-for="column in columns"
               :key="column.name"
+              class="task-list-column"
             >
               <h5>{{ column.name }}</h5>
 
               <draggable
                 v-model="column.items"
                 v-bind="dragOptions"
-                @start="onDragStart"
-                @end="onDragEnd"
                 item-key="id"
                 class="task-list__items"
                 :data-column-name="column.name"
                 :force-fallback="true"
                 :delay="$q.platform.is.mobile ? 200 : 0"
+                @start="onDragStart"
+                @end="onDragEnd"
               >
                 <template #item="{ element }">
                   <TaskItem
@@ -68,8 +68,8 @@
           <q-btn
             label="Создать"
             color="primary"
-            @click="createTask"
             :disable="loadingCreation"
+            @click="createTask"
           />
         </q-card-actions>
       </q-card>
@@ -78,116 +78,117 @@
 </template>
 
 <script setup lang="ts">
-import draggable from 'vuedraggable';
-import { computed, onMounted, ref } from 'vue';
-import { useQuasar } from 'quasar';
-import { storeToRefs } from 'pinia';
-import TaskItem from './taskItem.vue';
-import type { Task } from '../../types';
-import { useTaskStore } from '../../stores';
+import draggable from 'vuedraggable'
+import { computed, onMounted, ref } from 'vue'
+import { useQuasar } from 'quasar'
+import { storeToRefs } from 'pinia'
+import TaskItem from './taskItem.vue'
+import type { Task } from '../../types'
+import { useTaskStore } from '../../stores'
 
-const $q = useQuasar();
+const $q = useQuasar()
 
-const {
-  fetch, create, remove, update,
-} = useTaskStore();
-const { tasks } = storeToRefs(useTaskStore());
+const { fetch, create, remove, update } = useTaskStore()
+const { tasks } = storeToRefs(useTaskStore())
 
-const loading = ref(true);
-const showCreateDialog = ref(false);
-const taskName = ref('');
-const loadingCreation = ref(false);
-const columnNames = ['new', 'doing', 'done'];
-const columns = ref<{ name: string; items: Task[] }[]>([]);
-let columnsStateBeforeDrug: { name: string; items: Task[] }[] = [];
-const drag = ref(false);
+const loading = ref(true)
+const showCreateDialog = ref(false)
+const taskName = ref('')
+const loadingCreation = ref(false)
+const columnNames = ['new', 'doing', 'done']
+const columns = ref<{ name: string; items: Task[] }[]>([])
+let columnsStateBeforeDrug: { name: string; items: Task[] }[] = []
+const drag = ref(false)
 const dragOptions = {
   animation: 200,
   group: 'tasks',
   disabled: drag.value,
   ghostClass: 'ghost',
-};
+}
 
 const columnsByTasks = computed(() => {
   if (!tasks.value) {
-    return {};
+    return {}
   }
   return (
     tasks.value.reduce<{ [key: string]: Task[] }>((acc, curr: Task) => {
       if (curr.type in acc) {
-        acc[`${curr.type}`].push(curr);
+        acc[`${curr.type}`].push(curr)
       } else {
-        acc[`${curr.type}`] = [curr];
+        acc[`${curr.type}`] = [curr]
       }
-      return acc;
+      return acc
     }, {}) || {}
-  );
-});
+  )
+})
 
 const refreshColumns = () => {
   columns.value = columnNames.map((name) => ({
     name,
     items: columnsByTasks.value[name] || [],
-  }));
-};
+  }))
+}
 
 const createTask = async () => {
   if (!taskName.value) {
-    return;
+    return
   }
   try {
-    loadingCreation.value = true;
-    await create(taskName.value);
-    refreshColumns();
+    loadingCreation.value = true
+    await create(taskName.value)
+    refreshColumns()
   } catch {
     /* empty */
   } finally {
-    loadingCreation.value = false;
-    showCreateDialog.value = false;
-    taskName.value = '';
+    loadingCreation.value = false
+    showCreateDialog.value = false
+    taskName.value = ''
   }
-};
+}
 const removeTask = async (id: number) => {
   try {
-    await remove(id);
-    refreshColumns();
+    await remove(id)
+    refreshColumns()
   } catch {
     /* empty */
   }
-};
+}
 const changeTaskOrder = async (task: Task) => {
   try {
-    await update(task);
-    columnsStateBeforeDrug = [];
+    await update(task)
+    columnsStateBeforeDrug = []
   } catch (e) {
-    columns.value = columnsStateBeforeDrug;
+    columns.value = columnsStateBeforeDrug
   }
-};
+}
 
 const onDragStart = () => {
-  columnsStateBeforeDrug = JSON.parse(JSON.stringify(columns.value));
-  drag.value = true;
-  navigator.vibrate(100);
-};
+  columnsStateBeforeDrug = JSON.parse(JSON.stringify(columns.value)) as {
+    name: string
+    items: Task[]
+  }[]
+  drag.value = true
+  navigator.vibrate(100)
+}
 
 const onDragEnd = async (e: {
-  item: { dataset: { id: string | number } };
-  to: { dataset: { columnName: never } };
+  item: { dataset: { id: string | number } }
+  to: { dataset: { columnName: never } }
 }) => {
-  const foundTask = tasks.value?.find((task) => task.id === +e.item.dataset.id);
+  const foundTask = tasks.value?.find((task) => task.id === +e.item.dataset.id)
 
   if (foundTask) {
-    await changeTaskOrder({ ...foundTask, type: e.to.dataset.columnName });
+    await changeTaskOrder({ ...foundTask, type: e.to.dataset.columnName })
   }
-  drag.value = false;
-};
+  drag.value = false
+}
 
 onMounted(async () => {
-  loading.value = true;
-  await fetch();
-  refreshColumns();
-  loading.value = false;
-});
+  loading.value = true
+  await fetch()
+  refreshColumns()
+  loading.value = false
+})
 </script>
 
 <style scoped lang="scss">

@@ -1,4 +1,4 @@
-import { Notify } from 'quasar';
+import { Notify } from 'quasar'
 
 export const rErrorNotify = (message: string): void => {
   const errorNotify = {
@@ -10,10 +10,10 @@ export const rErrorNotify = (message: string): void => {
         color: 'white',
       },
     ],
-  };
+  }
 
-  Notify.create(errorNotify);
-};
+  Notify.create(errorNotify)
+}
 
 export const rSuccessNotify = (message: string): void => {
   const successNotify = {
@@ -25,10 +25,10 @@ export const rSuccessNotify = (message: string): void => {
         color: 'white',
       },
     ],
-  };
+  }
 
-  Notify.create(successNotify);
-};
+  Notify.create(successNotify)
+}
 
 export const rInfoNotify = (message: string): void => {
   const successNotify = {
@@ -40,13 +40,13 @@ export const rInfoNotify = (message: string): void => {
         color: 'white',
       },
     ],
-  };
+  }
 
-  Notify.create(successNotify);
-};
+  Notify.create(successNotify)
+}
 
 export default {
   error: rErrorNotify,
   success: rSuccessNotify,
   info: rInfoNotify,
-};
+}

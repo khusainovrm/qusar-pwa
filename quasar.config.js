@@ -11,12 +11,12 @@
 /* eslint func-names: 0 */
 /* eslint global-require: 0 */
 
-const { configure } = require('quasar/wrappers');
-const pkg = require('./package.json');
+const { configure } = require('quasar/wrappers')
+const pkg = require('./package.json')
 
 module.exports = configure((ctx) => ({
   eslint: {
-    fix: !ctx.prod,
+    // fix: !ctx.prod,
     warnings: ctx.prod,
     errors: ctx.prod,
   },
@@ -35,14 +35,10 @@ module.exports = configure((ctx) => ({
   // app boot file (/src/boot)
   // --> boot files are part of "main.js"
   // https://v2.quasar.dev/quasar-cli-vite/boot-files
-  boot: [
-    'axios',
-  ],
+  boot: ['axios'],
 
   // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
-  css: [
-    'app.scss',
-  ],
+  css: ['app.scss'],
 
   // https://github.com/quasarframework/quasar/tree/dev/extras
   extras: [
@@ -56,6 +52,10 @@ module.exports = configure((ctx) => ({
       browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
       node: 'node16',
     },
+    modulePreload: {
+      polyfill: false,
+    },
+    lib: 'es',
     rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
     publicPath: '/',
     reportCompressedSize: false,
@@ -79,46 +79,7 @@ module.exports = configure((ctx) => ({
       },
     },
     lang: 'ru', // Quasar language pack
-    plugins: [
-      'Notify',
-    ],
-  },
-
-  // animations: 'all', // --- includes all animations
-  // https://v2.quasar.dev/options/animations
-  animations: [],
-
-  // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#sourcefiles
-  // sourceFiles: {
-  //   rootComponent: 'src/App.vue',
-  //   router: 'src/router/index',
-  //   store: 'src/store/index',
-  //   registerServiceWorker: 'src-pwa/register-service-worker',
-  //   serviceWorker: 'src-pwa/custom-service-worker',
-  //   pwaManifestFile: 'src-pwa/manifest.json',
-  //   electronMain: 'src-electron/electron-main',
-  //   electronPreload: 'src-electron/electron-preload'
-  // },
-
-  // https://v2.quasar.dev/quasar-cli-vite/developing-ssr/configuring-ssr
-  ssr: {
-    // ssrPwaHtmlFilename: 'offline.html', // do NOT use index.html as name!
-    // will mess up SSR
-
-    // extendSSRWebserverConf (esbuildConf) {},
-    // extendPackageJson (json) {},
-
-    pwa: false,
-
-    // manualStoreHydration: true,
-    // manualPostHydrationTrigger: true,
-
-    prodPort: 3000, // The default port that the production server should use
-    // (gets superseded if process.env.PORT is specified at runtime)
-
-    middlewares: [
-      'render', // keep this as last one
-    ],
+    plugins: ['Notify', 'LocalStorage'],
   },
 
   // https://v2.quasar.dev/quasar-cli-vite/developing-pwa/configuring-pwa
@@ -189,4 +150,4 @@ module.exports = configure((ctx) => ({
       pwaManifestFile: 'src-pwa/manifest.json',
     },
   },
-}));
+}))

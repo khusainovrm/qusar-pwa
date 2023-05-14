@@ -1,12 +1,12 @@
 /* eslint-disable */
 
-import { Ref } from 'vue';
+import { Ref } from 'vue'
 
 declare namespace NodeJS {
   interface ProcessEnv {
-    NODE_ENV: string;
-    VUE_ROUTER_MODE: 'hash' | 'history' | 'abstract' | undefined;
-    VUE_ROUTER_BASE: string | undefined;
+    NODE_ENV: string
+    VUE_ROUTER_MODE: 'hash' | 'history' | 'abstract' | undefined
+    VUE_ROUTER_BASE: string | undefined
   }
 }
 
@@ -29,7 +29,7 @@ export interface RegisterSWOptions {
    */
   onRegisteredSW?: (
     swScriptUrl: string,
-    registration: ServiceWorkerRegistration | undefined
+    registration: ServiceWorkerRegistration | undefined,
   ) => void
   onRegisterError?: (error: any) => void
 }
