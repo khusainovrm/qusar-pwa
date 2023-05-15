@@ -9,6 +9,7 @@
     "dev": "quasar dev -m pwa --debug",
     "build": "quasar build -m pwa -d",
     "build:apk": "quasar build -m android -d",
+    "build:apk2": "bubblewrap build",
     "lint": "eslint --ext .js,.ts,.vue ./ --fix",
     "test": "echo \"No test specified\" && exit 0"
   },
@@ -27,6 +28,7 @@
     "@types/node": "^12.20.21",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
+    "@bubblewrap/cli": "1.20.0",
     "autoprefixer": "^10.4.2",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "~8.8.0",
