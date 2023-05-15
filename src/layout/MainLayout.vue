@@ -17,7 +17,7 @@
           ></path>
         </svg>
       </a>
-      <span class="">Hello 💊💊</span>
+      <span class="">Hello 💊💊💊</span>
     </div>
     <slot></slot>
   </div>
